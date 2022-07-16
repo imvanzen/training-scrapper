@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/imvanzen/training-scrapper/issues"
   },
-  "homepage": "https://github.com/imvanzen/training-scrapper#readme"
+  "homepage": "https://github.com/imvanzen/training-scrapper#readme",
+  "dependencies": {
+    "puppeteer": "^15.4.0"
+  }
 }
