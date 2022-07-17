@@ -9,7 +9,7 @@ async function scrape() {
     try {
         console.log('Browser opened')
         console.log('Get page')
-        await page.goto('https://uslugirozwojowe.parp.gov.pl/wyszukiwarka/uslugi/szukaj?nazwaUslugi=&identyfikatorProjektu=&rodzaj=&formaSwiadczenia=&kkz=0&kkzLista=&kuz=0&kuzLista=&nabycieKwalifikacji=0&kategoria=&dataRozpoczeciaUslugi=&dataZakonczeniaUslugi=&ocena=0%2C5&cenaZaGodzine=0&cenaBruttoZaUslugeOd=&cenaBruttoZaUslugeDo=&cenaBruttoOd=&cenaBruttoDo=&mozliwoscDofinansowania=0&miejsceSzkolenia=&miejscowoscId=&promienZasiegu=15&dostawcyUslug=&dostawcyUslug%5B%5D=126910&per-page=100&order=score')
+        await page.goto(process.env.SOURCE_WEBSITE)
         console.log('Looking for selector')
         const element = await page.waitForSelector('#wyniki-dostawcow')
         console.log('Looking for trainings')
