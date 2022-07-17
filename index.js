@@ -2,6 +2,9 @@ const puppeteer = require('puppeteer')
 const Webflow = require('webflow-api');
 require('dotenv').config();
 
+const SOURCE_WEBSITE = process.env.SOURCE_WEBSITE;
+const WEBFLOW_API_TOKEN = process.env.WEBFLOW_API_TOKEN;
+
 async function scrape() {
     const browser = await puppeteer.launch({})
     const page = await browser.newPage()
@@ -9,7 +12,7 @@ async function scrape() {
     try {
         console.log('Browser opened')
         console.log('Get page')
-        await page.goto(process.env.SOURCE_WEBSITE)
+        await page.goto(SOURCE_WEBSITE)
         console.log('Looking for selector')
         const element = await page.waitForSelector('#wyniki-dostawcow')
         console.log('Looking for trainings')
@@ -36,9 +39,9 @@ async function scrape() {
 
 async function update(data) {
     const webflow = new Webflow({
-        token: process.env.WEBFLOW_API_TOKEN,
-    });
-    webflow.info().then((info) => console.log(info));
+        token: WEBFLOW_API_TOKEN,
+    })
+    webflow.info().then((info) => console.log(info))
 }
 
 async function run() {
