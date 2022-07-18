@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/imvanzen/training-scrapper#readme",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "puppeteer": "^15.4.0",
     "webflow-api": "^0.8.0"
   }
