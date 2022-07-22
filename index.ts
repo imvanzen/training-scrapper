@@ -12,10 +12,9 @@ const webflow = new Webflow({
     token: WEBFLOW_API_TOKEN,
 })
 
-async function scrape() {
+async function scrapeTrainigns() {
     const browser = await puppeteer.launch({})
     const page = await browser.newPage()
-
     try {
         console.log('Browser opened')
         console.log('Get page')
@@ -23,7 +22,7 @@ async function scrape() {
         console.log('Looking for selector')
         const element = await page.waitForSelector('#wyniki-dostawcow')
         console.log('Looking for trainings')
-        let scrappedSet = await page.evaluate(element => {
+        let scrappedNodes = await page.evaluate(element => {
             const trainings = element.querySelectorAll('[data-key]')
             return [...trainings].map(training => {
                 const id = training.dataset.key
@@ -32,10 +31,10 @@ async function scrape() {
                 const dateframe = training.querySelector('.service-card-footer > div:nth-child(4)').childNodes[3].innerText;
                 const link = training.querySelector('.service-card > div > div:nth-child(2) > div > div > a:nth-child(1)').href
                 return { id, header, category, dateframe, link }
-            });
+            })
         }, element)
-        console.log('Found trainings %o', scrappedSet)
-        return scrappedSet
+        console.log('Found trainings %o', scrappedNodes)
+        return scrappedNodes
     } catch (error) {
         console.error('Unexpected error %s, %j', error, error)
     } finally {
@@ -44,20 +43,19 @@ async function scrape() {
     }
 }
 
-async function update(data) {
+async function update() {
     const response = await webflow.get(`/collections/${WEBFLOW_TRAINING_COLLECTION_ID}/items`)
     console.log(`/sites/${WEBFLOW_WEBSITE_ID}/collections %o`, response)
     return
 }
 
 async function run() {
-    // const scrapedSet = await scrape()
-    await update()
-
     // Source data
     // - Scrape the content
     // - Pull values from content
+    const scrappedContent = await scrapeTrainigns();
     // - Sanitize content
+    console.log(scrappedContent);
 
     // Modify collection
     // - Pull collection items from website
